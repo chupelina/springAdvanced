@@ -32,7 +32,7 @@ public class MusicDBUserService implements UserDetailsService {
     private UserDetails mapToUserDetails(UserEntity userEntity) {
         List<GrantedAuthority> authorities = userEntity
                 .getRoles().stream()
-                .map(ur->new SimpleGrantedAuthority(ur.getRole().name()))
+                .map(ur->new SimpleGrantedAuthority("ROLE_" + ur.getRole().name()))
                 .collect(Collectors.toList());
         return new User(
                 userEntity.getName(),
