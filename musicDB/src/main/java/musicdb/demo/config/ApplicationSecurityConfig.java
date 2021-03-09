@@ -29,7 +29,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/users/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-        .defaultSuccessUrl("/home").failureForwardUrl("/users/login-error");
+                .defaultSuccessUrl("/home")
+                .failureForwardUrl("/users/login-error")
+                .and().logout()
+                .logoutUrl("/logout").logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+        ;
         //ToDo: login & register
     }
 

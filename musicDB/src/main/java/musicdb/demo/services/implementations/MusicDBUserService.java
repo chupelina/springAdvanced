@@ -23,7 +23,7 @@ public class MusicDBUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByName(s).
+        UserEntity userEntity = userRepository.findByUsername(s).
                 orElseThrow(()-> new UsernameNotFoundException("User with this name does not exists!"));
 
         return mapToUserDetails(userEntity);
@@ -35,7 +35,7 @@ public class MusicDBUserService implements UserDetailsService {
                 .map(ur->new SimpleGrantedAuthority("ROLE_" + ur.getRole().name()))
                 .collect(Collectors.toList());
         return new User(
-                userEntity.getName(),
+                userEntity.getUsername(),
                 userEntity.getPassword(),
                 authorities
         );

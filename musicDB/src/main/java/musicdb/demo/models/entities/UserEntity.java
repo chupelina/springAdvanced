@@ -8,18 +8,29 @@ import java.util.List;
 @Table(name= "users")
 public class UserEntity extends BaseEntity {
     @Column(nullable = false)
-    private String name;
+    private String username;
+    @Column(nullable = false)
+    private String fullName;
     @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles= new ArrayList<>();
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public UserEntity setName(String name) {
-        this.name = name;
+    public UserEntity setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public UserEntity setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
@@ -40,4 +51,10 @@ public class UserEntity extends BaseEntity {
         this.roles = roles;
         return this;
     }
+
+    public UserEntity addRole(UserRoleEntity roleEntity){
+        this.roles.add(roleEntity);
+        return this;
+    }
+
 }
