@@ -31,6 +31,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/home")
                 .failureForwardUrl("/users/login-error")
+//                .failureUrl("/users/login-error")
                 .and().logout()
                 .logoutUrl("/logout").logoutSuccessUrl("/")
                 .invalidateHttpSession(true)

@@ -1,6 +1,6 @@
 package musicdb.demo.web;
 
-import musicdb.demo.models.binding.AlbumBindingModel;
+import musicdb.demo.models.viewModels.AlbumViewModel;
 import musicdb.demo.repositories.AlbumRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +24,9 @@ public class AlbumRestController {
 
 
     @GetMapping("/api")
-    public List<AlbumBindingModel> findAll(){
+    public List<AlbumViewModel> findAll(){
        return albumRepository.findAll()
-                .stream().map(ae-> modelMapper.map(ae, AlbumBindingModel.class))
+                .stream().map(ae-> modelMapper.map(ae, AlbumViewModel.class))
                .collect(Collectors.toList());
 
     }
