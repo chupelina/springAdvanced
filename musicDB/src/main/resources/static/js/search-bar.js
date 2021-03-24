@@ -1,3 +1,4 @@
+
 const albumsList = document.getElementById('albumsList');
 const searchBar = document.getElementById('searchInput');
 const allAlbums = [];
