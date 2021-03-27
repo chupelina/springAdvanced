@@ -70,4 +70,9 @@ public class UserServiceImpl implements UserService {
     public boolean isExistingWithSameName(String username) {
         return userRepository.findByUsername(username).isPresent();
     }
+
+    @Override
+    public UserEntity findByName(String username) {
+        return userRepository.findByUsername(username).orElseThrow();
+    }
 }

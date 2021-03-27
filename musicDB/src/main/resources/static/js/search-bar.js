@@ -12,12 +12,10 @@ fetch("http://localhost:8080/albums/api")
 
 searchBar.addEventListener('keyup', (e) => {
     const searchingCharacters = searchBar.value.toLowerCase();
-    console.log(allAlbums);
     let filteredAlbums = allAlbums.filter(album => {
         return album.name.toLowerCase().includes(searchingCharacters)
-            || album.artist.name.toLowerCase().includes(searchingCharacters);
+            || album.artist.toLowerCase().includes(searchingCharacters);
     });
-    console.log(filteredAlbums);
     displayAlbums(filteredAlbums);
 })
 
@@ -33,7 +31,7 @@ const displayAlbums = (albums) => {
                 <div class="card-body">
                     <div class="text-center">
                         <p class="card-text border-bottom ">Name: ${a.name}</p>
-                        <p class="card-text border-bottom ">Artist: ${a.artist.name}</p>
+                        <p class="card-text border-bottom ">Artist: ${a.artist}</p>
                         <p class="card-text border-bottom ">Genre: ${a.genre}</p>
                         <p class="card-text border-bottom ">Price: ${a.price}</p>
                         <p class="card-text border-bottom">Release Date: ${a.releaseDate}</p>

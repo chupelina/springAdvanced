@@ -26,9 +26,12 @@ public class AlbumRestController {
     @GetMapping("/api")
     public List<AlbumViewModel> findAll(){
        return albumRepository.findAll()
-                .stream().map(ae-> modelMapper.map(ae, AlbumViewModel.class))
+                .stream().map(ae->{
+               AlbumViewModel albumViewModel= modelMapper.map(ae, AlbumViewModel.class);
+               albumViewModel.setArtist(ae.getArtist().getName()).setReleaseDate(ae.getReleaseDate());
+               return albumViewModel;
+               } )
                .collect(Collectors.toList());
-
     }
 
 }

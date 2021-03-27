@@ -1,5 +1,6 @@
 package musicdb.demo.services;
 
+import musicdb.demo.models.entities.UserEntity;
 import musicdb.demo.models.serviceModels.UserRegistrationServiceModel;
 
 public interface UserService {
@@ -8,4 +9,6 @@ public interface UserService {
     void registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel);
 
     boolean isExistingWithSameName(String username);
+
+    UserEntity findByName(String username);
 }

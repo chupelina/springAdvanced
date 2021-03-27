@@ -2,21 +2,39 @@ package musicdb.demo.models.viewModels;
 
 import musicdb.demo.models.entities.enums.Genre;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 
 public class AlbumViewModel {
+    private Long id;
     private String name;
     private String imageUrl;
     private String videoUrl;
     private String description;
     private Integer copies;
     private BigDecimal price;
-    private Instant releaseDate;
+    private LocalDate releaseDate;
     private Genre genre;
+    private String artist;
+
+    public Long getId() {
+        return id;
+    }
+
+    public AlbumViewModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public AlbumViewModel setArtist(String artist) {
+        this.artist = artist;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -72,11 +90,11 @@ public class AlbumViewModel {
         return this;
     }
 
-    public Instant getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public AlbumViewModel setReleaseDate(Instant releaseDate) {
+    public AlbumViewModel setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
         return this;
     }

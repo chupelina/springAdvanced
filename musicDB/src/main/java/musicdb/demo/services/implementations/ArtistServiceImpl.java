@@ -1,7 +1,6 @@
 package musicdb.demo.services.implementations;
 
 import musicdb.demo.models.entities.ArtistEntity;
-import musicdb.demo.models.viewModels.ArtistViewModel;
 import musicdb.demo.repositories.ArtistRepository;
 import musicdb.demo.services.ArtistService;
 import org.modelmapper.ModelMapper;
@@ -51,8 +50,13 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public List<ArtistViewModel> getAllByName() {
-        return artistRepository.findAll().stream().map(a-> modelMapper.map(a, ArtistViewModel.class)).collect(Collectors.toList());
+    public List<String> getAllByName() {
+        return artistRepository.getAllNames();
+    }
+
+    @Override
+    public ArtistEntity findByName(String artist) {
+        return artistRepository.findFirstByName(artist).orElseThrow();
     }
 
 

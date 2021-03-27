@@ -5,6 +5,7 @@ import musicdb.demo.models.entities.enums.Genre;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="albums")
@@ -20,7 +21,7 @@ public class AlbumEntity extends BaseEntity{
     @Column(nullable = false)
     private BigDecimal price;
     @Column(nullable = false)
-    private Instant releaseDate;
+    private LocalDate releaseDate;
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
     @ManyToOne
@@ -82,11 +83,11 @@ public class AlbumEntity extends BaseEntity{
         return this;
     }
 
-    public Instant getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public AlbumEntity setReleaseDate(Instant releaseDate) {
+    public AlbumEntity setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
         return this;
     }
@@ -116,5 +117,21 @@ public class AlbumEntity extends BaseEntity{
     public AlbumEntity setUser(UserEntity user) {
         this.user = user;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "AlbumEntity{" +
+                "name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", copies=" + copies +
+                ", price=" + price +
+                ", releaseDate=" + releaseDate +
+                ", genre=" + genre +
+                ", artist=" + artist +
+                ", user=" + user +
+                '}';
     }
 }
