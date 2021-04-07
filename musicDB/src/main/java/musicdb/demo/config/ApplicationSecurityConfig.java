@@ -25,6 +25,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/css/**", "/img/**").permitAll()
                 .antMatchers("/", "/users/login", "/users/register").permitAll()
                 .antMatchers("/**").authenticated()
+                .antMatchers("/articles/add").hasRole("ADMIN")
                 .and()
                 .formLogin().loginPage("/users/login")
                 .usernameParameter("username")

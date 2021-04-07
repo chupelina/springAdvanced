@@ -1,5 +1,6 @@
 package musicdb.demo.services.implementations;
 
+import musicdb.demo.exeprtions.ObjectNotFoundException;
 import musicdb.demo.models.entities.AlbumEntity;
 import musicdb.demo.models.entities.UserEntity;
 import musicdb.demo.models.serviceModels.AlbumServiceModel;
@@ -20,6 +21,7 @@ public class AlbumServiceImpl implements AlbumService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
 
+
     public AlbumServiceImpl(ArtistService artistService, AlbumRepository albumRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.artistService = artistService;
         this.albumRepository = albumRepository;
@@ -39,7 +41,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public AlbumViewModel getAlbumById(Long id) {
-        AlbumEntity current = albumRepository.findById(id).orElseThrow();
+        AlbumEntity current = albumRepository.findById(id).orElseThrow(ObjectNotFoundException::new);
         AlbumViewModel map = modelMapper.map(current, AlbumViewModel.class);
         map.setArtist(current.getArtist().getName());
         return map;
@@ -47,6 +49,6 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public AlbumEntity findEntityById(Long albumId) {
-        return albumRepository.findById(albumId).orElseThrow();
+        return albumRepository.findById(albumId).orElseThrow(ObjectNotFoundException::new);
     }
 }

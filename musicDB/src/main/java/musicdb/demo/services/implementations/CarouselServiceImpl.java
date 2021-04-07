@@ -1,6 +1,7 @@
 package musicdb.demo.services.implementations;
 
 import musicdb.demo.services.CarouselService;
+import musicdb.demo.services.ImageShuffler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,17 +19,19 @@ public class CarouselServiceImpl implements CarouselService {
     private Logger LOGGER = LoggerFactory.getLogger(CarouselServiceImpl.class);
 
     private List<String> images = new ArrayList<>();
+    private ImageShuffler imageShuffler;
 
-    public CarouselServiceImpl(@Value("${carousel.images}") List<String> images) {
+    public CarouselServiceImpl(@Value("${carousel.images}") List<String> images, ImageShuffler imageShuffler) {
+        this.imageShuffler = imageShuffler;
         this.images.addAll(images);
     }
+
     @PostConstruct
-    public void afterInitialise(){
-        if(images.size()<3){
+    public void afterInitialise() {
+        if (images.size() < 3) {
             throw new IllegalArgumentException("less than 3 images");
         }
     }
-
 
 
     @Override
@@ -47,9 +50,9 @@ public class CarouselServiceImpl implements CarouselService {
     }
 
     @Scheduled(cron = "${carousel.refresh-cron}")
-    public void refresh(){
+    public void refresh() {
         LOGGER.info("shuffling");
-        Collections.shuffle(images);
+        imageShuffler.shuffle(images);
     }
 
 }

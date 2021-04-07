@@ -40,15 +40,17 @@ public class LogServiceImpl implements LogService {
                 .setUserEntity(userEntity)
                 .setDateTime(LocalDateTime.now());
         logRepository.save(logEntity);
+
+
     }
 
     @Override
     public List<LogServiceModel> getAllLogs() {
-        return logRepository.findAll().stream().map(log->{
+        return logRepository.findAll().stream().map(log -> {
             LogServiceModel logServiceModel = new LogServiceModel();
             logServiceModel.setAction(log.getAction()).setAlbumName(log.getAlbumEntity().getName())
                     .setDateTime(log.getDateTime()).setUsername(log.getUserEntity().getUsername())
-            .setId(log.getId());
+                    .setId(log.getId());
             return logServiceModel;
         }).collect(Collectors.toList());
     }
