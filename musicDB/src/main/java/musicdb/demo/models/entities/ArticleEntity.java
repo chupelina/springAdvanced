@@ -3,6 +3,7 @@ package musicdb.demo.models.entities;
 import musicdb.demo.models.entities.enums.Genre;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "articles")
@@ -18,6 +19,7 @@ public class ArticleEntity extends BaseEntity {
     private UserEntity userEntity;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+    private LocalDateTime releaseDate;
 
     public String getTitle() {
         return title;
@@ -25,6 +27,15 @@ public class ArticleEntity extends BaseEntity {
 
     public ArticleEntity setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public LocalDateTime getReleaseDate() {
+        return releaseDate;
+    }
+
+    public ArticleEntity setReleaseDate(LocalDateTime releaseDate) {
+        this.releaseDate = releaseDate;
         return this;
     }
 

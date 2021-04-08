@@ -13,10 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -49,12 +49,13 @@ public class ArticleServiceTest {
                 .setGenre(Genre.ROCK)
                 .setContent("bb")
                 .setUserEntity(userEntity1);
-        when(mockArticleRepository.findAll()).thenReturn(List.of(articleEntity, articleEntity1));
+
         serviceToTest = new ArticleServiceImpl(modelMapper, mockArticleRepository);
     }
 
     @Test
     public void findAllTest(){
+        when(mockArticleRepository.findAll()).thenReturn(List.of(articleEntity, articleEntity1));
         List<ArticleViewModel> allArticles = serviceToTest.getAllArticles();
         Assertions.assertEquals(2,allArticles.size());
 
@@ -74,5 +75,21 @@ public class ArticleServiceTest {
         Assertions.assertEquals(articleEntity1.getGenre(), model2.getGenre());
         Assertions.assertEquals(articleEntity1.getContent(), model2.getContent());
         Assertions.assertEquals(userEntity1.getUsername(), model2.getAuthor());
+    }
+
+    @Test
+    public void testLatestArticle(){
+        when(mockArticleRepository.findTopByOrderByReleaseDateDesc()).thenReturn(Optional.of(articleEntity));
+        ArticleViewModel firstByDate = serviceToTest.findFirstByDate();
+
+        Assertions.assertEquals(articleEntity.getTitle(), firstByDate.getTitle());
+        Assertions.assertEquals(articleEntity.getUserEntity().getUsername(), firstByDate.getAuthor());
+    }
+
+    @Test
+    public void testLatestArticleWithNoPresent(){
+        when(mockArticleRepository.findTopByOrderByReleaseDateDesc()).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(NoSuchElementException.class,()->serviceToTest.findFirstByDate());
     }
 }
